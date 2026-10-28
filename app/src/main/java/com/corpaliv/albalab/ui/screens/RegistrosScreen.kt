@@ -36,7 +36,7 @@ fun RegistrosScreen(
                     "Completa el formulario de contacto para ver las solicitudes aquí.",
             style = MaterialTheme.typography.bodyMedium
         )
-        
+
         Spacer(modifier = Modifier.height(12.dp))
 
         if (registros.isEmpty()) {
