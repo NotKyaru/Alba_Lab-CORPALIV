@@ -38,6 +38,8 @@ fun ContactoScreen(
     var correo by remember { mutableStateOf("") }
     var modalidad by remember { mutableStateOf("") }
     var mensaje by remember { mutableStateOf("") }
+    var errorMensaje by remember { mutableStateOf("") }
+
 
     Column(
         modifier = Modifier
@@ -66,7 +68,7 @@ fun ContactoScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         Text(
-            text = "Modalidad de colaboraciÃ³n",
+            text = "Modalidad de colaboracion",
             style = MaterialTheme.typography.titleSmall
         )
         Spacer(modifier = Modifier.height(8.dp))
@@ -107,8 +109,42 @@ fun ContactoScreen(
         )
         Spacer(modifier = Modifier.height(12.dp))
 
-        BotonAccion("Enviar solicitud") {
-            onEnviar(RegistroInteres(nombre, correo, modalidad, mensaje))
+        if (errorMensaje.isNotEmpty()) {
+            Text(
+                text = errorMensaje,
+                color = MaterialTheme.colorScheme.error,
+                style = MaterialTheme.typography.bodySmall
+            )
+            Spacer(modifier = Modifier.height(12.dp))
         }
+
+        BotonAccion("Enviar solicitud") {
+            errorMensaje = ""
+            validarFormulario(nombre, correo, modalidad, mensaje)
+                .onSuccess { registro -> onEnviar(registro) }
+                .onFailure { error -> errorMensaje = "Error: ${error.message}" }
+        }
+        
     }
+}
+
+private fun validarFormulario(
+    nombre: String,
+    correo: String,
+    modalidad: String,
+    mensaje: String
+): Result<RegistroInteres> {
+    if (nombre.isEmpty()) {
+        return Result.failure(IllegalArgumentException("El nombre es obligatorio."))
+    }
+    if (correo.isEmpty()) {
+        return Result.failure(IllegalArgumentException("El correo es obligatorio."))
+    }
+    if (modalidad.isEmpty()) {
+        return Result.failure(IllegalArgumentException("Selecciona una modalidad de colaboración."))
+    }
+    if (mensaje.isEmpty()) {
+        return Result.failure(IllegalArgumentException("El mensaje es obligatorio."))
+    }
+    return Result.success(RegistroInteres(nombre, correo, modalidad, mensaje))
 }
