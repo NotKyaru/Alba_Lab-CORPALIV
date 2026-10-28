@@ -29,9 +29,16 @@ fun RegistrosScreen(
             .padding(20.dp)
     ) {
         TextoVolver(onVolver)
-        Spacer(modifier = Modifier.height(8.dp))
         EncabezadoPantalla("Registros de interés")
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = "Aún no hay registros de interés.\n" +
+                    "Completa el formulario de contacto para ver las solicitudes aquí.",
+            style = MaterialTheme.typography.bodyMedium
+        )
+        
         Spacer(modifier = Modifier.height(12.dp))
+
         if (registros.isEmpty()) {
             Text(
                 text = "Aún no hay registros de interés.",

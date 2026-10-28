@@ -124,7 +124,7 @@ fun ContactoScreen(
                 .onSuccess { registro -> onEnviar(registro) }
                 .onFailure { error -> errorMensaje = "Error: ${error.message}" }
         }
-        
+
     }
 }
 
