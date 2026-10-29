@@ -32,8 +32,7 @@ fun RegistrosScreen(
         EncabezadoPantalla("Registros de interés")
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = "Aún no hay registros de interés.\n" +
-                    "Completa el formulario de contacto para ver las solicitudes aquí.",
+            text = "Total de registros: ${registros.size}",
             style = MaterialTheme.typography.bodyMedium
         )
 
@@ -41,7 +40,8 @@ fun RegistrosScreen(
 
         if (registros.isEmpty()) {
             Text(
-                text = "Aún no hay registros de interés.",
+                text = "Aún no hay registros de interés.\n" +
+                        "Completa el formulario de contacto para ver las solicitudes aquí.",
                 style = MaterialTheme.typography.bodyMedium
             )
         } else {

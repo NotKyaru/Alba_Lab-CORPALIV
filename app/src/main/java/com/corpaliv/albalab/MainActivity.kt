@@ -72,7 +72,7 @@ fun CorpalivApp() {
                     IconButton(onClick = { menuAbierto = true }) {
                         Icon(
                             imageVector = Icons.Filled.Menu,
-                            contentDescription = "Opciones de menÃº"
+                            contentDescription = "Opciones de menú"
                         )
                         MenuOpciones(
                             isExpanded = menuAbierto,
