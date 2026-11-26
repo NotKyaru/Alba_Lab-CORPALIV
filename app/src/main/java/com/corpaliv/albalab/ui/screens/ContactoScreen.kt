@@ -23,7 +23,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.corpaliv.albalab.data.RegistroInteres
+import com.corpaliv.albalab.data.model.RegistroInteres
 import com.corpaliv.albalab.data.listaModalidades
 import com.corpaliv.albalab.ui.components.BotonAccion
 import com.corpaliv.albalab.ui.components.EncabezadoPantalla

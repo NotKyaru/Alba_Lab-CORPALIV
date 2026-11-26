@@ -24,7 +24,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import com.corpaliv.albalab.data.RegistroInteres
+import com.corpaliv.albalab.data.model.RegistroInteres
 import com.corpaliv.albalab.navigation.Pantalla
 import com.corpaliv.albalab.ui.components.BarraNavegacion
 import com.corpaliv.albalab.ui.components.MenuOpciones

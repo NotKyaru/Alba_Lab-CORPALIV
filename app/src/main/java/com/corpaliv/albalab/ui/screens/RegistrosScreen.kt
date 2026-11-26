@@ -12,7 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.corpaliv.albalab.data.RegistroInteres
+import com.corpaliv.albalab.data.model.RegistroInteres
 import com.corpaliv.albalab.ui.components.EncabezadoPantalla
 import com.corpaliv.albalab.ui.components.TarjetaInfo
 import com.corpaliv.albalab.ui.components.TextoVolver
