@@ -22,7 +22,7 @@ const val PUERTO = 8081
 
 fun main() {
     val store = JsonStore(File("data/productos.json"), "/seed/productos.json", Producto::class.java)
-    // 0.0.0.0: acepta conexiones del emulador (10.0.2.2) y de teléfonos en la misma red Wi-Fi.
+    // 0.0.0.0: acepta conexiones locales (emulador o teléfono vía adb reverse) y de la red Wi-Fi.
     embeddedServer(Netty, port = PUERTO, host = "0.0.0.0") { modulo(store) }.start(wait = true)
 }
 
