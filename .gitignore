@@ -13,3 +13,18 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Material del profesor (guías y caso en PDF)
+*.pdf
+/material/
+
+# Material de Claude y herramientas de IA
+CLAUDE.md
+CLAUDE.local.md
+.claude/
+graphify-out/
+docs/PLAN_BACKEND.md
+
+# Backend: artefactos de build y datos de ejecución
+backend/**/build/
+backend/*/data/
