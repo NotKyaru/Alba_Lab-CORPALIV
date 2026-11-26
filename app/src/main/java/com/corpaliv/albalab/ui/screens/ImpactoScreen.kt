@@ -10,12 +10,14 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.corpaliv.albalab.data.listaCasosExito
+import com.corpaliv.albalab.data.model.CasoExito
+import com.corpaliv.albalab.data.model.UiState
+import com.corpaliv.albalab.ui.components.ContenidoSegunEstado
 import com.corpaliv.albalab.ui.components.EncabezadoPantalla
 import com.corpaliv.albalab.ui.components.TarjetaInfo
 
 @Composable
-fun ImpactoScreen() {
+fun ImpactoScreen(casosExito: UiState<List<CasoExito>>) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -24,12 +26,14 @@ fun ImpactoScreen() {
     ) {
         EncabezadoPantalla("Impacto y casos de éxito")
         Spacer(modifier = Modifier.height(12.dp))
-        listaCasosExito.forEach { caso ->
-            TarjetaInfo(
-                titulo = caso.titulo,
-                descripcion = "${caso.descripcion}\nIndicador: ${caso.indicador}"
-            )
-            Spacer(modifier = Modifier.height(12.dp))
+        ContenidoSegunEstado(casosExito) { lista ->
+            lista.forEach { caso ->
+                TarjetaInfo(
+                    titulo = caso.titulo,
+                    descripcion = "${caso.descripcion}\nIndicador: ${caso.indicador}"
+                )
+                Spacer(modifier = Modifier.height(12.dp))
+            }
         }
     }
 }
