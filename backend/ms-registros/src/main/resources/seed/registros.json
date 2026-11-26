@@ -1,3 +1,3 @@
 [
-  { "id": 1, "nombre": "Empresa Ficticia SpA", "correo": "contacto@example.com", "modalidad": "Alianza empresarial", "mensaje": "Queremos conocer las opciones de alianza.", "estado": "Pendiente" }
+  { "nombre": "Empresa Ficticia SpA", "correo": "contacto@example.com", "modalidad": "Alianza empresarial", "mensaje": "Queremos conocer las opciones de alianza.", "estado": "Pendiente" }
 ]

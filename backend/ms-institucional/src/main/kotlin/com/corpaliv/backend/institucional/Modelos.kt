@@ -1,19 +1,36 @@
 package com.corpaliv.backend.institucional
 
-data class Programa(
-    val id: Int,
-    val nombre: String,
-    val descripcion: String
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import org.springframework.data.jpa.repository.JpaRepository
+
+@Entity
+class Programa(
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Int? = null,
+    var nombre: String,
+    @field:Column(length = 1000)
+    var descripcion: String
 )
 
-data class CasoExito(
-    val id: Int,
-    val titulo: String,
-    val descripcion: String,
-    val indicador: String
+@Entity
+class CasoExito(
+    @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Int? = null,
+    var titulo: String,
+    @field:Column(length = 1000)
+    var descripcion: String,
+    var indicador: String
 )
 
-// Cuerpos de PUT. Campos nullable porque Gson deja en null lo que falte en el JSON.
+interface ProgramaRepository : JpaRepository<Programa, Int>
+
+interface CasoExitoRepository : JpaRepository<CasoExito, Int>
+
+// Cuerpos de PUT. Campos nullable para validar a mano lo que falte en el JSON.
 data class ProgramaEntrada(val nombre: String?, val descripcion: String?) {
     fun aPrograma(id: Int): Programa? =
         if (nombre.isNullOrBlank() || descripcion.isNullOrBlank()) null

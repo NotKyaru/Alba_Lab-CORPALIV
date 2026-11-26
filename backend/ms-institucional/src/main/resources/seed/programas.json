@@ -1,7 +1,7 @@
 [
-  { "id": 1, "nombre": "Formación para el empleo", "descripcion": "Capacitación en habilidades laborales para personas con discapacidad múltiple." },
-  { "id": 2, "nombre": "Producción y comercialización", "descripcion": "Elaboración y venta de productos artesanales con impacto social." },
-  { "id": 3, "nombre": "RSE y vinculación empresarial", "descripcion": "Iniciativas de responsabilidad social junto a empresas y donantes." },
-  { "id": 4, "nombre": "Escuela Especial Jan Van Dijk", "descripcion": "Educación especializada que impulsa la autonomía de cada persona." },
-  { "id": 5, "nombre": "Red Sociolaboral Alba Lab", "descripcion": "Red de apoyo para la inclusión social y laboral." }
+  { "nombre": "Formación para el empleo", "descripcion": "Capacitación en habilidades laborales para personas con discapacidad múltiple." },
+  { "nombre": "Producción y comercialización", "descripcion": "Elaboración y venta de productos artesanales con impacto social." },
+  { "nombre": "RSE y vinculación empresarial", "descripcion": "Iniciativas de responsabilidad social junto a empresas y donantes." },
+  { "nombre": "Escuela Especial Jan Van Dijk", "descripcion": "Educación especializada que impulsa la autonomía de cada persona." },
+  { "nombre": "Red Sociolaboral Alba Lab", "descripcion": "Red de apoyo para la inclusión social y laboral." }
 ]
