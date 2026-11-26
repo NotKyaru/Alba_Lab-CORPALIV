@@ -1,6 +1,6 @@
 package com.corpaliv.albalab.navigation
 
-import com.corpaliv.albalab.data.Producto
+import com.corpaliv.albalab.data.model.Producto
 
 sealed class Pantalla(val titulo: String) {
     object Inicio : Pantalla("Inicio")

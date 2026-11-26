@@ -10,3 +10,6 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+# Gson lee y escribe los campos por nombre: si R8 los renombra en release, el JSON
+# del backend deja de coincidir con los modelos.
+-keep class com.corpaliv.albalab.data.model.** { *; }

@@ -1,5 +1,9 @@
 package com.corpaliv.albalab.data
 
+import com.corpaliv.albalab.data.model.CasoExito
+import com.corpaliv.albalab.data.model.Producto
+import com.corpaliv.albalab.data.model.Programa
+
 // Datos de ejemplo 100% FICTICIOS.
 // El caso prohíbe usar datos personales reales (RUT, correos, fotos, etc.).
 

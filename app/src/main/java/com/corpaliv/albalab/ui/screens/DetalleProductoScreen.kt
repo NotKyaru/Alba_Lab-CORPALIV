@@ -13,7 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.corpaliv.albalab.data.Producto
+import com.corpaliv.albalab.data.model.Producto
 import com.corpaliv.albalab.ui.components.TextoVolver
 
 @Composable

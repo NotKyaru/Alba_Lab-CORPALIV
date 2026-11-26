@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.corpaliv.albalab.data.Producto
+import com.corpaliv.albalab.data.model.Producto
 import com.corpaliv.albalab.data.listaProductos
 import com.corpaliv.albalab.ui.components.EncabezadoPantalla
 
