@@ -1,0 +1,5 @@
+[
+  { "id": 1, "titulo": "Integración laboral", "descripcion": "Una persona se incorporó al programa de empleo y hoy participa en la producción de velas.", "indicador": "120 personas formadas" },
+  { "id": 2, "titulo": "Nueva alianza empresarial", "descripcion": "Una empresa se sumó a la red de vinculación y apoya el programa de formación.", "indicador": "15 alianzas activas" },
+  { "id": 3, "titulo": "Productos con impacto", "descripcion": "Los productos de Alba Lab llegaron a nuevas tiendas y ferias locales.", "indicador": "800 productos vendidos" }
+]
