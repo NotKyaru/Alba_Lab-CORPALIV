@@ -5,9 +5,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitInstance {
 
-    // shortcut: IP fija del emulador; para un teléfono físico cámbiala por la IP del PC
-    // (y agrégala en res/xml/network_security_config.xml).
-    private const val HOST = "http://10.0.2.2"
+    // 127.0.0.1 del dispositivo se redirige al PC con "adb reverse" (backend/conectar-dispositivo.ps1).
+    // Funciona igual en el emulador y en un teléfono por USB, sin depender de la red ni de la IP del PC.
+    private const val HOST = "http://127.0.0.1"
 
     private fun crear(puerto: Int): Retrofit = Retrofit.Builder()
         .baseUrl("$HOST:$puerto/")
