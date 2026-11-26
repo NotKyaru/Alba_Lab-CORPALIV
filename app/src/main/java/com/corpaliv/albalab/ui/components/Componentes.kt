@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.MaterialTheme
@@ -19,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.corpaliv.albalab.data.model.UiState
 
 // encabezado de pantalla reutilizable
 @Composable
@@ -112,4 +114,27 @@ fun TextoVolver(onVolver: () -> Unit) {
             .clickable { onVolver() }
             .padding(8.dp)
     )
+}
+// muestra carga, error o el contenido según el estado que entrega el ViewModel
+@Composable
+fun <T> ContenidoSegunEstado(
+    estado: UiState<T>,
+    contenido: @Composable (T) -> Unit
+) {
+    when (estado) {
+        is UiState.Cargando -> Box(
+            modifier = Modifier.fillMaxWidth().padding(24.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator()
+        }
+
+        is UiState.Error -> Text(
+            text = estado.mensaje,
+            color = MaterialTheme.colorScheme.error,
+            style = MaterialTheme.typography.bodyMedium
+        )
+
+        is UiState.Exito -> contenido(estado.datos)
+    }
 }

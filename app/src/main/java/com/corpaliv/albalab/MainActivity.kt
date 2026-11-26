@@ -18,13 +18,14 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import com.corpaliv.albalab.data.model.RegistroInteres
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.corpaliv.albalab.data.model.UiState
 import com.corpaliv.albalab.navigation.Pantalla
 import com.corpaliv.albalab.ui.components.BarraNavegacion
 import com.corpaliv.albalab.ui.components.MenuOpciones
@@ -37,6 +38,9 @@ import com.corpaliv.albalab.ui.screens.InicioScreen
 import com.corpaliv.albalab.ui.screens.ProgramasScreen
 import com.corpaliv.albalab.ui.screens.RegistrosScreen
 import com.corpaliv.albalab.ui.theme.CorpalivTheme
+import com.corpaliv.albalab.viewmodel.CatalogoViewModel
+import com.corpaliv.albalab.viewmodel.InstitucionalViewModel
+import com.corpaliv.albalab.viewmodel.RegistrosViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,10 +56,19 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CorpalivApp() {
+fun CorpalivApp(
+    catalogoVm: CatalogoViewModel = viewModel(),
+    institucionalVm: InstitucionalViewModel = viewModel(),
+    registrosVm: RegistrosViewModel = viewModel()
+) {
     var pantallaActual by remember { mutableStateOf<Pantalla>(Pantalla.Inicio) }
-    val registros = remember { mutableStateListOf<RegistroInteres>() }
     var menuAbierto by remember { mutableStateOf(false) }
+
+    // Cada ViewModel consulta su microservicio cada 3 s; al cambiar un dato, Compose redibuja solo.
+    val productos by catalogoVm.productos.collectAsState()
+    val programas by institucionalVm.programas.collectAsState()
+    val casosExito by institucionalVm.casosExito.collectAsState()
+    val registros by registrosVm.registros.collectAsState()
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -102,13 +115,13 @@ fun CorpalivApp() {
             when (pantalla) {
                 Pantalla.Inicio -> InicioScreen(onNavegar = { pantallaActual = it })
 
-                Pantalla.Programas -> ProgramasScreen()
+                Pantalla.Programas -> ProgramasScreen(programas)
 
-                Pantalla.Catalogo -> CatalogoScreen(onVerProducto = { producto ->
+                Pantalla.Catalogo -> CatalogoScreen(productos, onVerProducto = { producto ->
                     pantallaActual = Pantalla.DetalleProducto(producto)
                 })
 
-                Pantalla.Impacto -> ImpactoScreen()
+                Pantalla.Impacto -> ImpactoScreen(casosExito)
 
                 Pantalla.Colaborar -> ColaborarScreen(
                     onContacto = { pantallaActual = Pantalla.Contacto }
@@ -116,9 +129,12 @@ fun CorpalivApp() {
 
                 Pantalla.Contacto -> ContactoScreen(
                     onVolver = { pantallaActual = Pantalla.Colaborar },
-                    onEnviar = { registro ->
-                        registros.add(registro)
-                        pantallaActual = Pantalla.Registros
+                    onEnviar = { registro, onError ->
+                        registrosVm.enviar(
+                            registro,
+                            onExito = { pantallaActual = Pantalla.Registros },
+                            onError = onError
+                        )
                     }
                 )
 
@@ -128,7 +144,9 @@ fun CorpalivApp() {
                 )
 
                 is Pantalla.DetalleProducto -> DetalleProductoScreen(
-                    producto = pantalla.producto,
+                    // Busca la versión más reciente del producto para que el detalle también se actualice en vivo.
+                    producto = (productos as? UiState.Exito)?.datos?.find { it.id == pantalla.producto.id }
+                        ?: pantalla.producto,
                     onVolver = { pantallaActual = Pantalla.Catalogo }
                 )
             }

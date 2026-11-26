@@ -32,13 +32,15 @@ import com.corpaliv.albalab.ui.components.TextoVolver
 @Composable
 fun ContactoScreen(
     onVolver: () -> Unit,
-    onEnviar: (RegistroInteres) -> Unit
+    // El segundo parámetro se llama si el backend no pudo guardar el registro.
+    onEnviar: (registro: RegistroInteres, onError: (String) -> Unit) -> Unit
 ) {
     var nombre by remember { mutableStateOf("") }
     var correo by remember { mutableStateOf("") }
     var modalidad by remember { mutableStateOf("") }
     var mensaje by remember { mutableStateOf("") }
     var errorMensaje by remember { mutableStateOf("") }
+    var enviando by remember { mutableStateOf(false) } // evita enviar el mismo registro dos veces
 
 
     Column(
@@ -118,10 +120,17 @@ fun ContactoScreen(
             Spacer(modifier = Modifier.height(12.dp))
         }
 
-        BotonAccion("Enviar solicitud") {
+        BotonAccion(if (enviando) "Enviando…" else "Enviar solicitud") {
+            if (enviando) return@BotonAccion
             errorMensaje = ""
             validarFormulario(nombre, correo, modalidad, mensaje)
-                .onSuccess { registro -> onEnviar(registro) }
+                .onSuccess { registro ->
+                    enviando = true
+                    onEnviar(registro) { error ->
+                        enviando = false
+                        errorMensaje = "Error: $error"
+                    }
+                }
                 .onFailure { error -> errorMensaje = "Error: ${error.message}" }
         }
 
@@ -134,16 +143,20 @@ private fun validarFormulario(
     modalidad: String,
     mensaje: String
 ): Result<RegistroInteres> {
-    if (nombre.isEmpty()) {
+    // Mismas reglas que valida ms-registros, para avisar antes de enviar.
+    if (nombre.isBlank()) {
         return Result.failure(IllegalArgumentException("El nombre es obligatorio."))
     }
-    if (correo.isEmpty()) {
+    if (correo.isBlank()) {
         return Result.failure(IllegalArgumentException("El correo es obligatorio."))
+    }
+    if (!correo.contains("@")) {
+        return Result.failure(IllegalArgumentException("El correo debe contener @."))
     }
     if (modalidad.isEmpty()) {
         return Result.failure(IllegalArgumentException("Selecciona una modalidad de colaboración."))
     }
-    if (mensaje.isEmpty()) {
+    if (mensaje.isBlank()) {
         return Result.failure(IllegalArgumentException("El mensaje es obligatorio."))
     }
     return Result.success(RegistroInteres(nombre, correo, modalidad, mensaje))

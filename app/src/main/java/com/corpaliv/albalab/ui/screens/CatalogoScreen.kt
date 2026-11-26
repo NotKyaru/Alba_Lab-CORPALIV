@@ -20,11 +20,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.corpaliv.albalab.data.model.Producto
-import com.corpaliv.albalab.data.listaProductos
+import com.corpaliv.albalab.data.model.UiState
+import com.corpaliv.albalab.ui.components.ContenidoSegunEstado
 import com.corpaliv.albalab.ui.components.EncabezadoPantalla
 
 @Composable
-fun CatalogoScreen(onVerProducto: (Producto) -> Unit) {
+fun CatalogoScreen(
+    productos: UiState<List<Producto>>,
+    onVerProducto: (Producto) -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -33,35 +37,37 @@ fun CatalogoScreen(onVerProducto: (Producto) -> Unit) {
     ) {
         EncabezadoPantalla("Catálogo de productos")
         Spacer(modifier = Modifier.height(12.dp))
-        listaProductos.forEach { producto ->
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(16.dp))
-                    .background(MaterialTheme.colorScheme.surface)
-                    .clickable { onVerProducto(producto) }
-                    .padding(16.dp)
-            ) {
-                Column {
-                    Text(
-                        text = producto.nombre,
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(
-                        text = producto.descripcion,
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(
-                        text = "Precio: \$${producto.precio}",
-                        style = MaterialTheme.typography.titleSmall,
-                        color = MaterialTheme.colorScheme.primary
-                    )
+        ContenidoSegunEstado(productos) { lista ->
+            lista.forEach { producto ->
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(16.dp))
+                        .background(MaterialTheme.colorScheme.surface)
+                        .clickable { onVerProducto(producto) }
+                        .padding(16.dp)
+                ) {
+                    Column {
+                        Text(
+                            text = producto.nombre,
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = producto.descripcion,
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = "Precio: \$${producto.precio}",
+                            style = MaterialTheme.typography.titleSmall,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                    }
                 }
+                Spacer(modifier = Modifier.height(12.dp))
             }
-            Spacer(modifier = Modifier.height(12.dp))
         }
     }
 }
