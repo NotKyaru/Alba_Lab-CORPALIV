@@ -1,0 +1,6 @@
+[
+  { "id": 1, "nombre": "Velas artesanales", "descripcion": "Velas decorativas hechas a mano por la comunidad Alba Lab.", "precio": 4500 },
+  { "id": 2, "nombre": "Jabones naturales", "descripcion": "Jabones ecológicos elaborados con ingredientes naturales.", "precio": 3200 },
+  { "id": 3, "nombre": "Libretas recicladas", "descripcion": "Libretas hechas con materiales 100% reciclados.", "precio": 2800 },
+  { "id": 4, "nombre": "Maceteros decorativos", "descripcion": "Maceteros de diseño para interiores y exteriores.", "precio": 6000 }
+]
