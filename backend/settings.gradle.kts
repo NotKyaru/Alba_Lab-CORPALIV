@@ -9,4 +9,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "corpaliv-backend"
-include("common")
+include("common", "ms-catalogo")
